@@ -1,0 +1,188 @@
+<!--
+ Copyright (c) 2014, 2019, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+-->
+<div class="oj-hybrid-padding">
+    <h1>Dashboard Content Area</h1>
+  
+   
+    
+    <div class="oj-flex oj-flex-init">
+
+ 
+        <!--
+        <demo-card class="oj-flex-item" name="[[name]]" avatar="[[avatar]]" work-title="[[title]]" 
+                   work-number="[[work]]" email="[[email]]">
+        </demo-card> 
+        -->
+        <div class="oj-flex-item oj-md-3 oj-sm-6">
+            
+            <h3><oj-label for="itemsList">Activity Items</oj-label></h3>
+            <oj-list-view id="itemsList" style="width:100%;height:500px;overflow-x:hidden" data="[[serieDataSource]]"
+                          selection-mode="single" selection="{{selectedActivity}}" on-selection-changed="[[selectedActivityChanged]]"
+                          first-selected-item="{{firstSelectedActivity}}" scroll-policy="loadMoreOnScroll"
+                          scroll-policy-options.fetch-size="5" on-data-changed="[[refreshItemList]]">
+                <!--
+                          selection-mode="single" selection="{{selectedItem}}" on-selection-changed="[[selectedItemChanged]]"
+                          first-selected-item="{{firstSelectedItem}}" scroll-policy="loadMoreOnScroll"
+                          scroll-policy-options.fetch-size="5">
+                -->
+                <template slot="itemTemplate">
+                    <div class="demo-content oj-flex-item">
+                        <div>
+                            <strong>
+                                <oj-bind-text value="[[$current.data.nombre]]"></oj-bind-text>
+                            </strong>
+                        </div>
+                        <span class="demo-metadata">
+                            <oj-bind-text value="[[$current.data.anotacion_privada]]"></oj-bind-text>
+                        </span>
+                    </div>
+                </template>
+            </oj-list-view>
+                        
+        </div>
+       
+        <oj-bind-if test="[[activitySelected()]]">
+            
+            
+            
+            <div class="oj-flex-item oj-md-3 oj-sm-6">
+
+                <oj-dialog id="createDialog" style="display:none" title="Create New Comic">
+                    <div slot="body">
+                        <p>You are now going to create a new Comic. Enjoy! :)</p>
+                    </div>
+                    <div slot="footer">
+                        <oj-button id="goToCreateComic" on-oj-action="[[goToCreateComic]]">Create</oj-button>
+                    </div>
+                </oj-dialog>
+                
+                <oj-dialog id="editDialog" style="display:none" title="Update Comic Details">
+                    <div slot="body">
+                        <oj-label-value label-edge="start">
+                            <oj-label for="chatWindow" slot="label">Comic ID</oj-label>
+                            <div slot="value" style="line-height: 2.4em">
+                                <oj-bind-text id="chatWindow" value="[[comicData().id]]" style="width:100%; min-width: 100%"></oj-bind-text>
+                            </div>
+                        </oj-label-value>
+                        <oj-label class="oj-label oj-label-inline" for="newNombre">Comic Name</oj-label>
+                        <oj-input-text id="newNombre" value="{{comicData().newNombre}}"></oj-input-text>
+                        <oj-label class="oj-label oj-label-inline" for="newIsbn">Comic ISBN</oj-label>
+                        <oj-input-text id="newIsbn" value="{{comicData().newIsbn}}"></oj-input-text>
+                        <oj-label class="oj-label oj-label-inline" for="newFoto">Comic Foto</oj-label>
+                        <oj-input-text id="newFoto" value="{{comicData().newFoto}}"></oj-input-text>
+                        <oj-label class="oj-label oj-label-inline" for="newAnotacionPrivada">Comic Anotacion Privada</oj-label>
+                        <oj-input-text id="newAnotacionPrivada" value="{{comicData().newAnotacionPrivada}}"></oj-input-text>
+                        
+                    </div>
+                    <div slot="footer">
+                        <oj-button id="submitBtn" on-oj-action="[[updateComicSubmit]]">Submit</oj-button>
+                    </div>
+                </oj-dialog>
+                
+                <h3><oj-label for="activitiesList">Comics (RESTful API)</oj-label></h3>
+                <oj-button id="createButton" on-oj-action="[[showCreateDialog]]">Create</oj-button>
+                <oj-list-view id="activitiesList" style="width:100%;height:500px;overflow-x:hidden"  data="[[dataSource]]" selection-mode="single" selection="{{selectedComic}}" on-selection-changed="[[selectedComicChanged]]"
+                          first-selected-item="{{firstSelectedComic}}">
+
+                    <template slot="itemTemplate">
+                        <div class="oj-flex" style="flex-wrap: nowrap">
+                            <span class="demo-thumbnail oj-flex-item" :style.background-image="[['url( '+$current.data.foto+')']]"></span>
+                            <div class="demo-content oj-flex-item">
+                                <div>
+                                    <strong>
+                                        <oj-bind-text value="[[$current.data.nombre]]"></oj-bind-text>
+                                    </strong>
+                                </div>
+                                <span class="demo-metadata">
+                                    <oj-bind-text value="[[$current.data.isbn]]"></oj-bind-text>
+                                </span>
+                                <oj-button id="updateComic" on-oj-action="[[updateComic]]">Update</oj-button>
+                                <oj-button id="deleteComic" on-oj-action="[[deleteComic]]">Delete</oj-button>
+                            </div>
+                        </div>
+                    </template>
+
+                </oj-list-view>
+            </div>
+        </oj-bind-if>
+        <div class="oj-flex oj-flex-item oj-flex-items-pad oj-md-6 oj-sm-12">
+            <!--
+            <div class="oj-flex-item oj-md-6 oj-sm-12">
+
+                <div id="container">
+                    <oj-module config='[[moduleConfig]]'></oj-module>
+                </div>
+
+
+            </div>
+            -->
+            <oj-select-one options="[[testList]]" options-keys.label="nombre" options-keys.value="id"></oj-select-one>
+            <div class="oj-flex-item oj-md-6 oj-sm-12">
+
+                <h3><oj-label for="basicSelect">Item Details</oj-label></h3>
+                <hr style="margin-top:12px;">
+                <oj-select-one id="basicSelect" value="{{val}}" style="max-width:20em">
+                    <oj-option value="pie">Pie</oj-option>
+                    <oj-option value="bar">Bar</oj-option>
+
+                </oj-select-one>
+                <oj-chart id="barChart"
+                          type="{{val}}" 
+                          orientation="[[orientationValue]]"
+                          stack="[[stackValue]]"
+                          series="[[barSeriesValue]]"
+                          groups="[[barGroupsValue]]" 
+                          animation-on-display="auto"
+                          animation-on-data-change="auto"
+                          hover-behavior="dim"
+                          style="max-width:500px;width:100%;height:350px;">
+                </oj-chart>
+
+            </div> 
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

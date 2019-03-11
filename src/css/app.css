@@ -1,0 +1,22 @@
+/*
+    Document   : override
+    Created on : <date>
+    Author     : <author>
+    Description:
+        This is where any of your application specific styles should be included
+*/
+  #component-container demo-card .demo-card-front-side {
+    background-image: url('images/composites/card-background_1.png');
+  }
+
+  
+  .demo-thumbnail{
+    border-radius: 5px; 
+  background-size: 40px 40px; 
+  background-repeat: no-repeat;
+  min-width: 40px; 
+  min-height: 40px; 
+  max-width: 40px;
+  margin-right: 10px;
+  }
+.fez-comic-icon{width:18px;height:18px}.fez-comic-icon:before{content:url("images/fezcomic.svg")}html:not([dir="rtl"]) .fez-comic-icon{padding-right:4px}html[dir="rtl"] .fez-comic-icon{padding-left:4px}.fez-comic-icon:before{display:inline}  
