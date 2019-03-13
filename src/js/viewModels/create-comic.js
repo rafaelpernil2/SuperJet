@@ -21,13 +21,13 @@ define(['ojs/ojcore',
         function (oj, ko, $, ComicFactory, ComicHasSerieFactory) {
             function CreateComicViewModel() {
                 var self = this;
+
                 self.router = oj.Router.rootInstance;
-                //var currentState = router.currentState();
-                self.params = self.router['parameters'];
                 self.serie_id = self.router.currentState().parameters.serie_id;
+
                 self.newItem = ko.observableArray([]);
+
                 self.comicCollection = ComicFactory.createComicCollection();
-                self.comicCollection.fetch();
                 self.comicHasSeriesCollection = ComicHasSerieFactory.createComicHasSerieCollection();
 
                 self.createComic = function (event, data) {
@@ -44,12 +44,15 @@ define(['ojs/ojcore',
                         success: function (model, response) {
                             console.log('Successfully created a new comic');
                             
-                            self.comicCollection.refresh();
-                            console.log(self.comicCollection.findWhere({nombre: data.newItem.nombre}).attributes.id);
+                            self.comicCollection.fetch();
+                            
                             var comic_has_serie = {
                                 id_comic: self.comicCollection.findWhere({nombre: data.newItem.nombre}).attributes.id,
                                 id_serie: self.serie_id
                             };
+
+                            self.comicHasSeriesCollection.fetch();
+                            
                             self.comicHasSeriesCollection.create(comic_has_serie, {
                                 wait: true,
                                 contentType: 'application/json',

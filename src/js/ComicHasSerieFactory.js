@@ -11,10 +11,9 @@
 define(['ojs/ojcore'],function(oj){
     var ComicHasSerieFactory = {
         resourceUrl: 'http://back-api-dot-infra-triumph-229219.appspot.com/comichasseries',
-        
         createComicHasSerieModel: function() {
             var ComicHasSerie = oj.Model.extend({
-                urlRoot: this.resourceUrl+ '/',
+                urlRoot: this.resourceUrl + '/',
                 idAttribute: "id"
             });
             return new ComicHasSerie();
@@ -35,11 +34,11 @@ define(['ojs/ojcore'],function(oj){
         },
         createComicHasSerieForDeleteCollection: function() {
             var ComicHasSeries = oj.Collection.extend({
-                url: this.resourceUrl + '/',
+                url: this.resourceUrl,
                 model: this.createComicHasSerieForDeleteModel()
             });
             return new ComicHasSeries();
-        }
+        },
     };
     
     return ComicHasSerieFactory;

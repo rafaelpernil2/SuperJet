@@ -17,11 +17,11 @@
         -->
         <div class="oj-flex-item oj-md-3 oj-sm-6">
             
-            <h3><oj-label for="itemsList">Activity Items</oj-label></h3>
+            <h3><oj-label for="itemsList">Serie Items</oj-label></h3>
             <oj-list-view id="itemsList" style="width:100%;height:500px;overflow-x:hidden" data="[[serieDataSource]]"
-                          selection-mode="single" selection="{{selectedActivity}}" on-selection-changed="[[selectedActivityChanged]]"
-                          first-selected-item="{{firstSelectedActivity}}" scroll-policy="loadMoreOnScroll"
-                          scroll-policy-options.fetch-size="5" on-data-changed="[[refreshItemList]]">
+                          selection-mode="single" selection="{{selectedSerie}}" on-selection-changed="[[selectedSerieChanged]]"
+                          first-selected-item="{{firstSelectedSerie}}" scroll-policy="loadMoreOnScroll"
+                          scroll-policy-options.fetch-size="5" >
                 <!--
                           selection-mode="single" selection="{{selectedItem}}" on-selection-changed="[[selectedItemChanged]]"
                           first-selected-item="{{firstSelectedItem}}" scroll-policy="loadMoreOnScroll"
@@ -43,7 +43,7 @@
                         
         </div>
        
-        <oj-bind-if test="[[activitySelected()]]">
+        <oj-bind-if test="[[serieIsSelected()]]">
             
             
             
@@ -83,7 +83,7 @@
                 
                 <h3><oj-label for="activitiesList">Comics (RESTful API)</oj-label></h3>
                 <oj-button id="createButton" on-oj-action="[[showCreateDialog]]">Create</oj-button>
-                <oj-list-view id="activitiesList" style="width:100%;height:500px;overflow-x:hidden"  data="[[dataSource]]" selection-mode="single" selection="{{selectedComic}}" on-selection-changed="[[selectedComicChanged]]"
+                <oj-list-view id="activitiesList" style="width:100%;height:500px;overflow-x:hidden"  data="[[comicDataSource]]" selection-mode="single" selection="{{selectedComic}}" on-selection-changed="[[selectedComicChanged]]"
                           first-selected-item="{{firstSelectedComic}}">
 
                     <template slot="itemTemplate">
@@ -108,41 +108,7 @@
             </div>
         </oj-bind-if>
         <div class="oj-flex oj-flex-item oj-flex-items-pad oj-md-6 oj-sm-12">
-            <!--
-            <div class="oj-flex-item oj-md-6 oj-sm-12">
-
-                <div id="container">
-                    <oj-module config='[[moduleConfig]]'></oj-module>
-                </div>
-
-
-            </div>
-            -->
-            <oj-select-one options="[[testList]]" options-keys.label="nombre" options-keys.value="id"></oj-select-one>
-            <div class="oj-flex-item oj-md-6 oj-sm-12">
-
-                <h3><oj-label for="basicSelect">Item Details</oj-label></h3>
-                <hr style="margin-top:12px;">
-                <oj-select-one id="basicSelect" value="{{val}}" style="max-width:20em">
-                    <oj-option value="pie">Pie</oj-option>
-                    <oj-option value="bar">Bar</oj-option>
-
-                </oj-select-one>
-                <oj-chart id="barChart"
-                          type="{{val}}" 
-                          orientation="[[orientationValue]]"
-                          stack="[[stackValue]]"
-                          series="[[barSeriesValue]]"
-                          groups="[[barGroupsValue]]" 
-                          animation-on-display="auto"
-                          animation-on-data-change="auto"
-                          hover-behavior="dim"
-                          style="max-width:500px;width:100%;height:350px;">
-                </oj-chart>
-
-            </div> 
-        </div>
-
+        
     </div>
 </div>
 

@@ -16,7 +16,7 @@ define(['ojs/ojcore'],function(oj){
             });
             return new Comic();
         },
-        createComicModelForDelete: function() {
+        createComicForDeleteModel: function() {
             var Comic = oj.Model.extend({
                 urlRoot: this.resourceUrl,
                 parse: this.parseComic,
@@ -32,10 +32,10 @@ define(['ojs/ojcore'],function(oj){
             return new Comics();
         },
         
-        createComicCollectionForDelete: function() {
+        createComicForDeleteCollection: function() {
             var Comics = oj.Collection.extend({
-                url: this.resourceUrl + '/',
-                model: this.createComicModelForDelete()
+                url: this.resourceUrl,
+                model: this.createComicForDeleteModel()
             });
             return new Comics();
         },
@@ -62,7 +62,7 @@ define(['ojs/ojcore'],function(oj){
             
             var Comics = oj.Collection.extend({
                 url : this.getComicsBySerieStaticUrl + '/' + comic_id + '/',
-                model: this.createComicModel(),
+                model: this.createComicForDeleteModel(),
                 comparator: "id"
             });
             return new Comics();
