@@ -15,24 +15,15 @@ and open the template in the editor.
 
         <div class="oj-flex oj-flex-init">
             <div class="oj-flex oj-flex-item">
-                <oj-label class="oj-label oj-label-inline" for="createNewName">Nombre</oj-label>
-                <oj-input-text id="createNewName" value='{{newItem.nombre}}'></oj-input-text>
-                <oj-label class="oj-label oj-label-inline" for="createNewIsbn">ISBN</oj-label>
-                <oj-input-text id="createNewName" value='{{newItem.isbn}}'></oj-input-text>
-                <oj-label class="oj-label oj-label-inline" for="createAnotacionPrivada">Anotacion Privada</oj-label>
-                <oj-input-text id="createNewName" value='{{newItem.anotacion_privada}}'></oj-input-text>
-                <oj-button id="createComic" on-oj-action="[[createComic]]">Create</oj-button>
-                <!--
-                <oj-label class="oj-label oj-label-inline" for="serie">Serie</oj-label>
-                <oj-bind-text value="[[serie_id]]"></oj-bind-text>-->
-                
-                <!--
-                <oj-input-text id="createActivityId" readonly value="[[serie_id]]"></oj-input-text>
-                <oj-label class="oj-label oj-label-inline" for="createActivityId">Name</oj-label>
-                <oj-input-text id="createActivityId" readonly value="[[firstSelectedActivity().data.id]]"></oj-input-text>
-                <oj-label class="oj-label oj-label-inline" for="createNewName">Name</oj-label>
-                <oj-input-text id="createNewName" value='{{newItem.itemName}}'></oj-input-text>
-                -->
+                <oj-form-layout id="form-container">
+                    <oj-label  for="createNewName">Nombre</oj-label>
+                    <oj-input-text id="createNewName" value='{{newItem.nombre}}'></oj-input-text>
+                    <oj-label for="createNewIsbn">ISBN</oj-label>
+                    <oj-input-text id="createNewName" value='{{newItem.isbn}}'></oj-input-text>
+                    <oj-label for="createAnotacionPrivada">Anotacion Privada</oj-label>
+                    <oj-input-text id="createNewName" value='{{newItem.anotacion_privada}}'></oj-input-text>
+                    <oj-button id="createComic" on-oj-action="[[createComic]]">Create</oj-button>
+                </oj-form-layout>
             </div>
         </div>
     </body>

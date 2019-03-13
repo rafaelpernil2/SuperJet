@@ -7,7 +7,7 @@
  * Your dashboard ViewModel code goes here
  */
 define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojhtmlutils', 'ComicFactory', 'SerieFactory', 'ComicHasSerieFactory', 'ojs/ojselectcombobox', 'ojs/ojchart', 'demo-card/loader',
-    'ojs/ojlistview', 'ojs/ojmodel', 'ojs/ojdialog', 'ojs/ojcollectiondataprovider',
+    'ojs/ojlistview', 'ojs/ojmodel', 'ojs/ojdialog', 'ojs/ojcollectiondataprovider','ojs/ojinputtext',
     'ojs/ojarraydataprovider', 'ojs/ojmodule-element', 'ojs/ojcollectiontabledatasource'],
     function (oj, ko, $, HtmlUtils, ComicFactory, SerieFactory, ComicHasSerieFactory) {
 
@@ -104,6 +104,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojhtmlutils', 'ComicFactory', '
             
 
             self.updateComic = function (event, data) {
+                self.comicData("Hey");
+                console.log(self.comicData());
                 editDialog.open();
             },
             self.updateComicSubmit = function (event) {
@@ -132,12 +134,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojhtmlutils', 'ComicFactory', '
              */
             self.connected = function () {
                 
-                
-                if (self.serieIsSelected == true) {
-                    self.comicBySerieCollection.fetch();
-                    self.comicHasSerieForDeleteCollectionCollection.fetch();
+                if (self.serieIsSelected()) {
+                    self.comicHasSerieForDeleteCollection.fetch();
                     self.comicHasSerieCollection.fetch();
-                    self.comicDataSource(new oj.CollectionTableDataSource(self.comicBySerieCollection));
+                    self.comicBySerieCollection.fetch();
                 }
             };
 

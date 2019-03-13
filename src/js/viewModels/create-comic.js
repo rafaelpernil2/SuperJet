@@ -16,7 +16,8 @@ define(['ojs/ojcore',
     'ojs/ojmodel',
     'ojs/ojcollectiontabledatasource',
     'ojs/ojdialog',
-    'ojs/ojinputtext'
+    'ojs/ojinputtext',
+    'ojs/ojformlayout'
 ],
         function (oj, ko, $, ComicFactory, ComicHasSerieFactory) {
             function CreateComicViewModel() {
