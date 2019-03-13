@@ -66,19 +66,19 @@
                                 <oj-bind-text id="chatWindow" value="[[comicData().id]]" style="width:100%; min-width: 100%"></oj-bind-text>
                             </div>
                         </oj-label-value>
-                        <oj-label class="oj-label oj-label-inline" for="newNombre">Comic Name</oj-label>
-                        <oj-input-text id="newNombre" value="{{comicData().newNombre}}"></oj-input-text>
-                        <oj-label class="oj-label oj-label-inline" for="newIsbn">Comic ISBN</oj-label>
-                        <oj-input-text id="newIsbn" value="{{comicData().newIsbn}}"></oj-input-text>
-                        <oj-label class="oj-label oj-label-inline" for="newFoto">Comic Foto</oj-label>
-                        <oj-input-text id="newFoto" value="{{comicData().newFoto}}"></oj-input-text>
-                        <oj-label class="oj-label oj-label-inline" for="newAnotacionPrivada">Comic Anotacion Privada</oj-label>
-                        <oj-input-text id="newAnotacionPrivada" value="{{comicData().newAnotacionPrivada}}"></oj-input-text>
+                        <oj-label class="oj-label oj-label-inline" for="nombre">Comic Name</oj-label>
+                        <oj-input-text id="newNombre" value="{{comicData().nombre}}"></oj-input-text>
+                        <oj-label class="oj-label oj-label-inline" for="isbn">Comic ISBN</oj-label>
+                        <oj-input-text id="newIsbn" value="{{comicData().isbn}}"></oj-input-text>
+                        <oj-label class="oj-label oj-label-inline" for="foto">Comic Foto</oj-label>
+                        <oj-input-text id="newFoto" value="{{comicData().foto}}"></oj-input-text>
+                        <oj-label class="oj-label oj-label-inline" for="anotacion_privada">Comic Anotacion Privada</oj-label>
+                        <oj-input-text id="newAnotacionPrivada" value="{{comicData().anotacion_privada}}"></oj-input-text>
                         
                     </div>
                     <div slot="footer">
                         <oj-button id="submitBtn" on-oj-action="[[updateComicSubmit]]">Submit</oj-button>
-                    </div>
+                    </div> 
                 </oj-dialog>
                 
                 <h3><oj-label for="activitiesList">Comics (RESTful API)</oj-label></h3>
@@ -88,7 +88,7 @@
 
                     <template slot="itemTemplate">
                         <div class="oj-flex" style="flex-wrap: nowrap">
-                            <span class="demo-thumbnail oj-flex-item" :style.background-image="[['url( '+$current.data.foto+')']]"></span>
+                            <span class="demo-thumbnail oj-flex-item" :style.background-image="[['url( '+'data:image/png;base64'+','+$current.data.foto+')']]"></span>
                             <div class="demo-content oj-flex-item">
                                 <div>
                                     <strong>

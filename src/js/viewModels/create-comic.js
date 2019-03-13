@@ -43,7 +43,7 @@ define(['ojs/ojcore',
                         wait: true,
                         contentType: 'application/json',
                         success: function (model, response) {
-                            console.log('Successfully created a new comic');
+                           
                             
                             self.comicCollection.fetch();
                             
@@ -58,7 +58,6 @@ define(['ojs/ojcore',
                                 wait: true,
                                 contentType: 'application/json',
                                 success: function (model, response) {
-                                    console.log('Successfully created the related comic_has_serie');
                                     self.router.go('dashboard');
                                 },
                                 error: function (jqXHR, textStatus, errorThrown) {

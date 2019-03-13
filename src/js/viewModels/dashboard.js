@@ -42,6 +42,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojhtmlutils', 'ComicFactory', '
             self.comicHasSerieCollection = ComicHasSerieFactory.createComicHasSerieCollection();
             self.comicHasSerieForDeleteCollection = ComicHasSerieFactory.createComicHasSerieForDeleteCollection();
             self.serieCollection = SerieFactory.createSerieCollection();
+            self.comicCollection = ComicFactory.createComicCollection();
             self.comicForDeleteCollection = ComicFactory.createComicForDeleteCollection();
 
 
@@ -64,14 +65,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojhtmlutils', 'ComicFactory', '
 
 
             self.deleteComic = function (event, data) {
-                self.comicModel = self.comicBySerieCollection.get(data.data.id);
+                var comicModel = self.comicBySerieCollection.get(data.data.id);
 
-                self.comicForDeleteCollection.remove(self.comicModel.attributes, null);
-                self.comicModel.destroy({ "data": { "id": data.data.id }, "headers": { "Content-Type": 'application/json' } });
+                self.comicForDeleteCollection.remove(comicModel.attributes, null);
+                comicModel.destroy({ "data": { "id": data.data.id }, "headers": { "Content-Type": 'application/json' } });
 
-                self.comicHasSerieModel = self.comicHasSerieForDeleteCollection.findWhere({ id_comic: data.data.id });
-                self.comicHasSerieForDeleteCollection.remove(self.comicHasSerieModel.attributes, null);
-                self.comicHasSerieModel.destroy({ "headers": { "Content-Type": 'application/json' } });
+                var comicHasSerieModel = self.comicHasSerieForDeleteCollection.findWhere({ id_comic: data.data.id });
+                self.comicHasSerieForDeleteCollection.remove(comicHasSerieModel.attributes, null);
+                comicHasSerieModel.destroy({ "headers": { "Content-Type": 'application/json' } });
 
                 self.comicBySerieCollection = ComicFactory.getComicsBySerie(data.data.id);
                 self.comicBySerieCollection.fetch();
@@ -103,12 +104,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojhtmlutils', 'ComicFactory', '
             },
             
 
-            self.updateComic = function (event, data) {
-                self.comicData("Hey");
-                console.log(self.comicData());
+            self.updateComic = function (event,data) {
+                var comicModel = self.comicBySerieCollection.get(data.data.id);
+                self.comicData( {   
+                        'id': comicModel.attributes.id,
+                        'nombre': comicModel.attributes.nombre,
+                        'isbn': comicModel.attributes.isbn,
+                        'anotacion_privada': comicModel.attributes.anotacion_privada
+                    });
                 editDialog.open();
             },
-            self.updateComicSubmit = function (event) {
+            self.updateComicSubmit = function (event,data) {
+                var comicModel = self.comicBySerieCollection.get(self.comicData().id);
+                comicModel.save(self.comicData());
                 editDialog.close();
             }
 
