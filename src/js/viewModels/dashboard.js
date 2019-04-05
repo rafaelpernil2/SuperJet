@@ -6,7 +6,7 @@
 /*
  * Your dashboard ViewModel code goes here
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojhtmlutils', 'ComicFactory', 'SerieFactory', 'ComicHasSerieFactory', 'ojs/ojselectcombobox', 'ojs/ojchart', 'demo-card/loader',
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojhtmlutils', 'ComicFactory', 'SerieFactory', 'ComicHasSerieFactory', 'ojs/ojselectcombobox', 'ojs/ojchart', 'demo-update-item/loader',
     'ojs/ojlistview', 'ojs/ojmodel', 'ojs/ojdialog', 'ojs/ojcollectiondataprovider','ojs/ojinputtext',
     'ojs/ojarraydataprovider', 'ojs/ojmodule-element', 'ojs/ojcollectiontabledatasource'],
     function (oj, ko, $, HtmlUtils, ComicFactory, SerieFactory, ComicHasSerieFactory) {
@@ -20,7 +20,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojhtmlutils', 'ComicFactory', '
 
             self.comicDataSource = ko.observable();
             self.serieDataSource = ko.observable(),
-            
+
             // Selections
 
             self.selectedSerie = ko.observable();
@@ -40,73 +40,63 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojhtmlutils', 'ComicFactory', '
             // Collections
 
             self.comicHasSerieCollection = ComicHasSerieFactory.createComicHasSerieCollection();
-            self.comicHasSerieForDeleteCollection = ComicHasSerieFactory.createComicHasSerieForDeleteCollection();
             self.serieCollection = SerieFactory.createSerieCollection();
             self.comicCollection = ComicFactory.createComicCollection();
-            self.comicForDeleteCollection = ComicFactory.createComicForDeleteCollection();
 
 
             // Collections initializations
 
             self.serieCollection.fetch();
             self.comicHasSerieCollection.fetch();
-            self.comicHasSerieForDeleteCollection.fetch();
 
 
             // Data Sources initialization
 
             self.serieDataSource(new oj.CollectionTableDataSource(self.serieCollection));
-            
+
 
             // Other observables
 
             self.comicData = ko.observableArray([]);
-            
+
 
 
             self.deleteComic = function (event, data) {
                 var comicModel = self.comicBySerieCollection.get(data.data.id);
-
-                self.comicForDeleteCollection.remove(comicModel.attributes, null);
-                comicModel.destroy({ "data": { "id": data.data.id }, "headers": { "Content-Type": 'application/json' } });
-
-                var comicHasSerieModel = self.comicHasSerieForDeleteCollection.findWhere({ id_comic: data.data.id });
-                self.comicHasSerieForDeleteCollection.remove(comicHasSerieModel.attributes, null);
-                comicHasSerieModel.destroy({ "headers": { "Content-Type": 'application/json' } });
-
-                self.comicBySerieCollection = ComicFactory.getComicsBySerie(data.data.id);
-                self.comicBySerieCollection.fetch();
+                self.comicCollection.remove(comicModel.attributes, null);
+                comicModel.destroy();
             },
-            
-            
+
+
 
 
             // Event listeners
 
 
 
-            self.selectedComicChanged = function (event) {           
+            self.selectedComicChanged = function (event) {
             },
 
             self.selectedSerieChanged = function (event) {
                 if (event.detail.value.length != 0) {
+                    //console.log({"SerieConsoleLog": self.firstSelectedSerie().data.id});
                     self.serieSeleccionada = self.firstSelectedSerie().data.id;
-                    
+
                     self.comicBySerieCollection = ComicFactory.getComicsBySerie(self.serieSeleccionada);
                     self.comicBySerieCollection.fetch();
 
-                    self.comicDataSource(new oj.CollectionTableDataSource(self.comicBySerieCollection));                
-                    self.serieIsSelected(true); 
+                    self.comicDataSource(new oj.CollectionTableDataSource(self.comicBySerieCollection));
+                    self.serieIsSelected(true);
                 } else {
                     self.serieIsSelected(false);
                     self.comicIsSelected(false);
                 }
             },
-            
+
 
             self.updateComic = function (event,data) {
                 var comicModel = self.comicBySerieCollection.get(data.data.id);
-                self.comicData( {   
+                self.comicData( {
                         'id': comicModel.attributes.id,
                         'nombre': comicModel.attributes.nombre,
                         'isbn': comicModel.attributes.isbn,
@@ -123,27 +113,26 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojhtmlutils', 'ComicFactory', '
             self.showCreateDialog = function (event) {
                 createDialog.open();
              },
-                
+
             self.goToCreateComic = function (event) {
                 self.router.go('create-comic/' + self.firstSelectedSerie().data.id);
                 return true;
             },
-           
-            /** 
+
+            /**
              * End of oj-module code
              */
             /**
              * Optional ViewModel method invoked after the View is inserted into the
              * document DOM.  The application can put logic that requires the DOM being
-             * attached here. 
-             * This method might be called multiple times - after the View is created 
-             * and inserted into the DOM and after the View is reconnected 
+             * attached here.
+             * This method might be called multiple times - after the View is created
+             * and inserted into the DOM and after the View is reconnected
              * after being disconnected.
              */
             self.connected = function () {
-                
+
                 if (self.serieIsSelected()) {
-                    self.comicHasSerieForDeleteCollection.fetch();
                     self.comicHasSerieCollection.fetch();
                     self.comicBySerieCollection.fetch();
                 }

@@ -4,19 +4,23 @@
 -->
 <div class="oj-hybrid-padding">
     <h1>Dashboard Content Area</h1>
-  
-   
-    
+    <!--
+    <div class="oj-hybrid-padding">
+        <div class="oj-panel oj-sm-margin-2x demo-mypanel">
+            <h1 class="oj-header-border">Update Item Details</h1>
+            <div>
+                <demo-update-item></demo-update-item>
+            </div>
+        </div>
+    </div>
+    -->
+
+
     <div class="oj-flex oj-flex-init">
 
- 
-        <!--
-        <demo-card class="oj-flex-item" name="[[name]]" avatar="[[avatar]]" work-title="[[title]]" 
-                   work-number="[[work]]" email="[[email]]">
-        </demo-card> 
-        -->
+
         <div class="oj-flex-item oj-md-3 oj-sm-6">
-            
+
             <h3><oj-label for="itemsList">Serie Items</oj-label></h3>
             <oj-list-view id="itemsList" style="width:100%;height:500px;overflow-x:hidden" data="[[serieDataSource]]"
                           selection-mode="single" selection="{{selectedSerie}}" on-selection-changed="[[selectedSerieChanged]]"
@@ -40,13 +44,13 @@
                     </div>
                 </template>
             </oj-list-view>
-                        
+
         </div>
-       
+
         <oj-bind-if test="[[serieIsSelected()]]">
-            
-            
-            
+
+
+
             <div class="oj-flex-item oj-md-3 oj-sm-6">
 
                 <oj-dialog id="createDialog" style="display:none" title="Create New Comic">
@@ -57,7 +61,7 @@
                         <oj-button id="goToCreateComic" on-oj-action="[[goToCreateComic]]">Create</oj-button>
                     </div>
                 </oj-dialog>
-                
+
                 <oj-dialog id="editDialog" style="display:none" title="Update Comic Details">
                     <div slot="body">
                         <oj-label-value label-edge="start">
@@ -74,17 +78,17 @@
                         <oj-input-text id="newFoto" value="{{comicData().foto}}"></oj-input-text>
                         <oj-label class="oj-label oj-label-inline" for="anotacion_privada">Comic Anotacion Privada</oj-label>
                         <oj-input-text id="newAnotacionPrivada" value="{{comicData().anotacion_privada}}"></oj-input-text>
-                        
+
                     </div>
                     <div slot="footer">
                         <oj-button id="submitBtn" on-oj-action="[[updateComicSubmit]]">Submit</oj-button>
-                    </div> 
+                    </div>
                 </oj-dialog>
-                
+
                 <h3><oj-label for="activitiesList">Comics (RESTful API)</oj-label></h3>
                 <oj-button id="createButton" on-oj-action="[[showCreateDialog]]">Create</oj-button>
                 <oj-list-view id="activitiesList" style="width:100%;height:500px;overflow-x:hidden"  data="[[comicDataSource]]" selection-mode="single" selection="{{selectedComic}}" on-selection-changed="[[selectedComicChanged]]"
-                          first-selected-item="{{firstSelectedComic}}">
+                              first-selected-item="{{firstSelectedComic}}">
 
                     <template slot="itemTemplate">
                         <div class="oj-flex" style="flex-wrap: nowrap">
@@ -108,9 +112,9 @@
             </div>
         </oj-bind-if>
         <div class="oj-flex oj-flex-item oj-flex-items-pad oj-md-6 oj-sm-12">
-        
+
+        </div>
     </div>
-</div>
 
 
 

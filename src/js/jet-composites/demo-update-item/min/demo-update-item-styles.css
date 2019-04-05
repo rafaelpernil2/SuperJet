@@ -1,0 +1,8 @@
+demo-update-item:not(.oj-complete){
+  visibility: hidden;
+}
+
+demo-update-item{
+	min-height: 50px;
+	width: 50px;
+}

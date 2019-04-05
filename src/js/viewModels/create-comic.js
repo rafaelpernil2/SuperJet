@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -33,7 +33,7 @@ define(['ojs/ojcore',
 
                 self.createComic = function (event, data) {
                     //self.router.go('dashboard');
-                    
+
                     var comic = {
                         nombre: data.newItem.nombre,
                         isbn: data.newItem.isbn,
@@ -43,17 +43,17 @@ define(['ojs/ojcore',
                         wait: true,
                         contentType: 'application/json',
                         success: function (model, response) {
-                           
-                            
+
+
                             self.comicCollection.fetch();
-                            
+
                             var comic_has_serie = {
                                 id_comic: self.comicCollection.findWhere({nombre: data.newItem.nombre}).attributes.id,
                                 id_serie: self.serie_id
                             };
 
                             self.comicHasSeriesCollection.fetch();
-                            
+
                             self.comicHasSeriesCollection.create(comic_has_serie, {
                                 wait: true,
                                 contentType: 'application/json',
@@ -69,7 +69,7 @@ define(['ojs/ojcore',
                             console.log('Error in Create: ' + jqXHR.statusCode.caller);
                         }
                     });
-                    
+
 
                 };
 

@@ -8,7 +8,7 @@
  */
 define(['ojs/ojcore', 'knockout', 'jquery'],
  function(oj, ko, $) {
-  
+
     function IncidentsViewModel() {
       var self = this;
       // Below are a set of the ViewModel methods invoked by the oj-module component.
@@ -17,9 +17,9 @@ define(['ojs/ojcore', 'knockout', 'jquery'],
       /**
        * Optional ViewModel method invoked after the View is inserted into the
        * document DOM.  The application can put logic that requires the DOM being
-       * attached here. 
-       * This method might be called multiple times - after the View is created 
-       * and inserted into the DOM and after the View is reconnected 
+       * attached here.
+       * This method might be called multiple times - after the View is created
+       * and inserted into the DOM and after the View is reconnected
        * after being disconnected.
        */
       self.connected = function() {
