@@ -5,12 +5,12 @@
  */
 define(['ojs/ojcore', 'text!../config/config.json'],
     function (oj, jsonConfig) {
+        var config = JSON.parse(jsonConfig);
         var ComicFactory = {
-            config: JSON.parse(jsonConfig),
             // Create a single comic instance
             createComicModel: function () {
                 var Comic = oj.Model.extend({
-                    urlRoot: this.config.svc_comic,
+                    urlRoot: config.svc_comic,
                     parse: this.parseComic,
                     idAttribute: "id"
                 });
@@ -18,7 +18,7 @@ define(['ojs/ojcore', 'text!../config/config.json'],
             },
             createComicCollection: function () {
                 var Comics = oj.Collection.extend({
-                    url: this.config.svc_comic,
+                    url: config.svc_comic,
                     model: this.createComicModel()
                 });
                 return new Comics();
@@ -26,6 +26,7 @@ define(['ojs/ojcore', 'text!../config/config.json'],
 
 
             parseComic: function (response) {
+                
                 var img = config.default_image_base_64;
                 if (response) {
                     if (response.foto !== null) { img = response.foto; }
@@ -37,14 +38,14 @@ define(['ojs/ojcore', 'text!../config/config.json'],
                         foto: img
                     };
                 }
-            },
+            }.bind(this),
 
 
 
             getComicsBySerie: function (serie_id) {
 
                 var Comics = oj.Collection.extend({
-                    url: this.config.svc_comics_by_serie + '/' + serie_id,
+                    url: config.svc_comics_by_serie + '/' + serie_id,
                     model: this.createComicModel(),
                     comparator: "id"
                 });

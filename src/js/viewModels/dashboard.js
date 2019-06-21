@@ -6,7 +6,7 @@
 /*
  * Your dashboard ViewModel code goes here
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojhtmlutils', 'ComicFactory', 'SerieFactory', 'ComicHasSerieFactory', 'ojs/ojselectcombobox', 'ojs/ojchart', 'demo-update-item/loader',
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojhtmlutils', '../models/ComicFactory', '../models/SerieFactory', '../models/ComicHasSerieFactory', 'ojs/ojselectcombobox', 'ojs/ojchart', 'demo-update-item/loader',
     'ojs/ojlistview', 'ojs/ojmodel', 'ojs/ojdialog', 'ojs/ojcollectiondataprovider','ojs/ojinputtext',
     'ojs/ojarraydataprovider', 'ojs/ojmodule-element', 'ojs/ojcollectiontabledatasource'],
     function (oj, ko, $, HtmlUtils, ComicFactory, SerieFactory, ComicHasSerieFactory) {

@@ -6,8 +6,8 @@
 define(['ojs/ojcore',
     'knockout',
     'jquery',
-    'ComicFactory',
-    'ComicHasSerieFactory',
+    '../models/ComicFactory',
+    '../models/ComicHasSerieFactory',
     'ojs/ojlabel',
     'ojs/ojchart',
     'ojs/ojlistview',
@@ -61,12 +61,12 @@ define(['ojs/ojcore',
                                     self.router.go('dashboard');
                                 },
                                 error: function (jqXHR, textStatus, errorThrown) {
-                                    console.log('Error in Create: ' + jqXHR.statusCode.caller);
+                                    console.log('Error in Create: ' + errorThrown);
                                 }
                             });
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            console.log('Error in Create: ' + jqXHR.statusCode.caller);
+                            console.log('Error in Create: ' + errorThrown);
                         }
                     });
 

@@ -5,19 +5,19 @@
  */
 define(['ojs/ojcore', 'text!../config/config.json'],
     function (oj, jsonConfig) {
+        var config = JSON.parse(jsonConfig);
         var SerieFactory = {
-            config: JSON.parse(jsonConfig),
 
             createSerieModel: function () {
                 var Serie = oj.Model.extend({
-                    urlRoot: this.config.svc_serie,
+                    urlRoot: config.svc_serie,
                     idAttribute: "id"
                 });
                 return new Serie();
             },
             createSerieCollection: function () {
                 var Series = oj.Collection.extend({
-                    url: this.config.svc_serie,
+                    url: config.svc_serie,
                     model: this.createSerieModel()
                 });
                 return new Series();
