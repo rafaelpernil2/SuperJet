@@ -4,6 +4,7 @@
   "description": "An Oracle JavaScript Extension Toolkit(JET) web app",
   "dependencies": {
     "@oracle/oraclejet": "^7.0.0",
+    "braces": "^2.3.1",
     "qunitjs": "^2.4.1"
   },
   "devDependencies": {
