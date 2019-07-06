@@ -4,18 +4,6 @@
 -->
 <div class="oj-hybrid-padding">
     <h1>Dashboard Content Area</h1>
-    <!--
-    <div class="oj-hybrid-padding">
-        <div class="oj-panel oj-sm-margin-2x demo-mypanel">
-            <h1 class="oj-header-border">Update Item Details</h1>
-            <div>
-                <demo-update-item></demo-update-item>
-            </div>
-        </div>
-    </div>
-    -->
-
-
     <div class="oj-flex oj-flex-init">
 
 
@@ -26,19 +14,14 @@
                           selection-mode="single" selection="{{selectedSerie}}" on-selection-changed="[[selectedSerieChanged]]"
                           first-selected-item="{{firstSelectedSerie}}" scroll-policy="loadMoreOnScroll"
                           scroll-policy-options.fetch-size="5" >
-                <!--
-                          selection-mode="single" selection="{{selectedItem}}" on-selection-changed="[[selectedItemChanged]]"
-                          first-selected-item="{{firstSelectedItem}}" scroll-policy="loadMoreOnScroll"
-                          scroll-policy-options.fetch-size="5">
-                -->
                 <template slot="itemTemplate">
-                    <div class="demo-content oj-flex-item">
+                    <div class="oj-flex-item">
                         <div>
                             <strong>
                                 <oj-bind-text value="[[$current.data.nombre]]"></oj-bind-text>
                             </strong>
                         </div>
-                        <span class="demo-metadata">
+                        <span>
                             <oj-bind-text value="[[$current.data.anotacion_privada]]"></oj-bind-text>
                         </span>
                     </div>
@@ -92,14 +75,14 @@
 
                     <template slot="itemTemplate">
                         <div class="oj-flex" style="flex-wrap: nowrap">
-                            <span class="demo-thumbnail oj-flex-item" :style.background-image="[['url( '+'data:image/png;base64'+','+$current.data.foto+')']]"></span>
-                            <div class="demo-content oj-flex-item">
+                            <span class="oj-flex-item" :style.background-image="[['url( '+'data:image/png;base64'+','+$current.data.foto+')']]"></span>
+                            <div class="oj-flex-item">
                                 <div>
                                     <strong>
                                         <oj-bind-text value="[[$current.data.nombre]]"></oj-bind-text>
                                     </strong>
                                 </div>
-                                <span class="demo-metadata">
+                                <span >
                                     <oj-bind-text value="[[$current.data.isbn]]"></oj-bind-text>
                                 </span>
                                 <oj-button id="updateComic" on-oj-action="[[updateComic]]">Update</oj-button>

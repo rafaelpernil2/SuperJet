@@ -6,8 +6,8 @@
 /*
  * Your incidents ViewModel code goes here
  */
-define(['ojs/ojcore', 'knockout', 'jquery'],
- function(oj, ko, $) {
+define([],
+ function() {
 
     function IncidentsViewModel() {
       var self = this;

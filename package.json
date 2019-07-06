@@ -1,16 +1,14 @@
 {
-  "name": "tutorialapp",
+  "name": "SuperJet",
   "version": "1.0.0",
   "description": "An Oracle JavaScript Extension Toolkit(JET) web app",
   "dependencies": {
-    "@oracle/oraclejet": "^7.0.0",
-    "braces": "^2.3.1",
-    "qunitjs": "^2.4.1"
+    "@oracle/oraclejet": "~7.0.0"
   },
   "devDependencies": {
-    "@oracle/oraclejet-tooling": "^7.0.0",
-    "qunit": "^2.9.2",
-    "qunit-reporter-junit": "^1.1.1"
+    "@oracle/oraclejet-tooling": "~7.0.0",
+    "qunit-reporter-junit": "^1.1.1",
+    "qunit": "^2.4.1"
   },
   "engines": {
     "node": ">=0.10.0"

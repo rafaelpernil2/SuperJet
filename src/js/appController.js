@@ -6,20 +6,19 @@
 /*
  * Your application specific code will go here
  */
-define(['ojs/ojcore', 'knockout', 'ojs/ojmodule-element-utils', 'ojs/ojmodule-element', 'ojs/ojrouter', 'ojs/ojknockout', 'ojs/ojarraytabledatasource',
-  'ojs/ojoffcanvas'],
-  function(oj, ko, moduleUtils) {
+define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/ojresponsiveknockoututils', 'ojs/ojrouter', 'ojs/ojarraydataprovider', 'ojs/ojknockouttemplateutils', 'ojs/ojmodule-element', 'ojs/ojknockout'],
+  function(ko, moduleUtils, ResponsiveUtils, ResponsiveKnockoutUtils, Router, ArrayDataProvider, KnockoutTemplateUtils) {
      function ControllerViewModel() {
        var self = this;
 
+       self.KnockoutTemplateUtils = KnockoutTemplateUtils;
+
       // Media queries for repsonsive layouts
-      var smQuery = oj.ResponsiveUtils.getFrameworkQuery(oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.SM_ONLY);
-      self.smScreen = oj.ResponsiveKnockoutUtils.createMediaQueryObservable(smQuery);
-      var mdQuery = oj.ResponsiveUtils.getFrameworkQuery(oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.MD_UP);
-      self.mdScreen = oj.ResponsiveKnockoutUtils.createMediaQueryObservable(mdQuery);
+      var smQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.SM_ONLY);
+      self.smScreen = ResponsiveKnockoutUtils.createMediaQueryObservable(smQuery);
 
        // Router setup
-       self.router = oj.Router.rootInstance;
+       self.router = Router.rootInstance;
        self.router.configure({
          'dashboard': {label: 'Dashboard', isDefault: true},
          'create-comic/{serie_id}': {label: 'Create Comic'},
@@ -27,7 +26,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodule-element-utils', 'ojs/ojmodule-el
          'customers': {label: 'Customers'},
          'about': {label: 'About'}
        });
-      oj.Router.defaults['urlAdapter'] = new oj.Router.urlParamAdapter();
+      Router.defaults['urlAdapter'] = new Router.urlParamAdapter();
 
       self.moduleConfig = ko.observable({'view':[], 'viewModel':null});
 
@@ -59,26 +58,11 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodule-element-utils', 'ojs/ojmodule-el
       {name: 'About', id: 'about',
        iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-info-icon-24'}
       ];
-      self.navDataSource = new oj.ArrayTableDataSource(navData, {idAttribute: 'id'});
-
-      // Drawer
-      // Close offcanvas on medium and larger screens
-      self.mdScreen.subscribe(function() {oj.OffcanvasUtils.close(self.drawerParams);});
-      self.drawerParams = {
-        displayMode: 'push',
-        selector: '#navDrawer',
-        content: '#pageContent'
-      };
-      // Called by navigation drawer toggle button and after selection of nav drawer item
-      self.toggleDrawer = function() {
-        return oj.OffcanvasUtils.toggle(self.drawerParams);
-      }
-      // Add a close listener so we can move focus back to the toggle button when the drawer closes
-      $("#navDrawer").on("ojclose", function() { $('#drawerToggleButton').focus(); });
+      self.navDataProvider = new ArrayDataProvider(navData, {keyAttributes: 'id'});
 
       // Header
       // Application Name used in Branding Area
-      self.appName = ko.observable("SuperTestingAppRPB");
+      self.appName = ko.observable("App Name");
       // User Info used in Global Navigation area
       self.userLogin = ko.observable("john.hancock@oracle.com");
 
