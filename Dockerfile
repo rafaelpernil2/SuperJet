@@ -5,4 +5,4 @@ COPY package*.json ./
 RUN npm ci
 COPY . .
 EXPOSE 8100
-CMD ["ojet", "serve", "--server-port=8100"]
+CMD ["ojet", "serve", "--server-port=8100","--release"]
