@@ -54,7 +54,7 @@ This web application has been developed by myself:
 
 **Rafael Pernil Bronchalo** - *Developer* 
 
-* [github/rafaelpernil](https://github.com/rafaelpernil2)
+* [github/rafaelpernil2](https://github.com/rafaelpernil2)
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
