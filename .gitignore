@@ -1,7 +1,10 @@
+/jet_components
 /node_modules
 /bower_components
 /web
+/staged-themes
 /themes
+/jaftmp@
 
 /hybrid/node_modules
 /hybrid/platforms
@@ -13,3 +16,4 @@ hybrid/plugins/*
 
 .DS_Store
 Thumbs.db
+

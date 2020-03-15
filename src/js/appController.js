@@ -1,7 +1,8 @@
 /**
  * @license
- * Copyright (c) 2014, 2019, Oracle and/or its affiliates.
+ * Copyright (c) 2014, 2020, Oracle and/or its affiliates.
  * The Universal Permissive License (UPL), Version 1.0
+ * @ignore
  */
 /*
  * Your application specific code will go here
@@ -9,9 +10,21 @@
 define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/ojresponsiveknockoututils', 'ojs/ojrouter', 'ojs/ojarraydataprovider', 'ojs/ojknockouttemplateutils', 'ojs/ojmodule-element', 'ojs/ojknockout'],
   function(ko, moduleUtils, ResponsiveUtils, ResponsiveKnockoutUtils, Router, ArrayDataProvider, KnockoutTemplateUtils) {
      function ControllerViewModel() {
-       var self = this;
+        var self = this;
 
-       self.KnockoutTemplateUtils = KnockoutTemplateUtils;
+        self.KnockoutTemplateUtils = KnockoutTemplateUtils;
+
+        // Handle announcements sent when pages change, for Accessibility.
+        self.manner = ko.observable('polite');
+        self.message = ko.observable();
+        document.getElementById('globalBody').addEventListener('announce', announcementHandler, false);
+
+        function announcementHandler(event) {
+          setTimeout(function() {
+            self.message(event.detail.message);
+            self.manner(event.detail.manner);
+          }, 200);
+        };
 
       // Media queries for repsonsive layouts
       var smQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.SM_ONLY);
@@ -20,44 +33,35 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/
        // Router setup
        self.router = Router.rootInstance;
        self.router.configure({
-         'dashboard': {label: 'Dashboard', isDefault: true},
-         'create-comic/{serie_id}': {label: 'Create Comic'},
-         'incidents': {label: 'Incidents'},
-         'customers': {label: 'Customers'},
-         'about': {label: 'About'}
-       });
+        'dashboard': {label: 'Dashboard', isDefault: true},
+        'create-comic/{serie_id}': {label: 'Create Comic'},
+        'incidents': {label: 'Incidents'},
+        'customers': {label: 'Customers'},
+        'about': {label: 'About'}
+      });
       Router.defaults['urlAdapter'] = new Router.urlParamAdapter();
 
-      self.moduleConfig = ko.observable({'view':[], 'viewModel':null});
-
-      self.loadModule = function() {
-        ko.computed(function() {
+      self.loadModule = function () {
+        self.moduleConfig = ko.pureComputed(function () {
           var name = self.router.moduleConfig.name();
           var viewPath = 'views/' + name + '.html';
           var modelPath = 'viewModels/' + name;
-          var masterPromise = Promise.all([
-            moduleUtils.createView({'viewPath':viewPath}),
-            moduleUtils.createViewModel({'viewModelPath':modelPath})
-          ]);
-          masterPromise.then(
-            function(values){
-              self.moduleConfig({'view':values[0],'viewModel':values[1]});
-            }
-          );
+          return moduleUtils.createConfig({ viewPath: viewPath,
+            viewModelPath: modelPath, params: { parentRouter: self.router } });
         });
       };
 
       // Navigation setup
       var navData = [
-      {name: 'Dashboard', id: 'dashboard',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-chart-icon-24'},
-      {name: 'Incidents', id: 'incidents',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-fire-icon-24'},
-      {name: 'Customers', id: 'customers',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-people-icon-24'},
-      {name: 'About', id: 'about',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-info-icon-24'}
-      ];
+        {name: 'Dashboard', id: 'dashboard',
+         iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-chart-icon-24'},
+        {name: 'Incidents', id: 'incidents',
+         iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-fire-icon-24'},
+        {name: 'Customers', id: 'customers',
+         iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-people-icon-24'},
+        {name: 'About', id: 'about',
+         iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-info-icon-24'}
+        ];
       self.navDataProvider = new ArrayDataProvider(navData, {keyAttributes: 'id'});
 
       // Header

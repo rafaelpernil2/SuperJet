@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
- Copyright (c) 2014, 2019, Oracle and/or its affiliates.
+ Copyright (c) 2014, 2020, Oracle and/or its affiliates.
  The Universal Permissive License (UPL), Version 1.0
  -->
 
@@ -34,7 +34,7 @@
 
     <!-- This is the main css file for the default Alta theme -->
     <!-- injector:theme -->
-    <link rel="stylesheet" href="css/libs/oj/v7.0.1/alta/oj-alta-min.css" type="text/css"/>
+    <link rel="stylesheet" href="css/libs/oj/v8.1.0/alta/oj-alta-min.css" type="text/css"/>
     <!-- endinjector -->
     
     <!-- This contains icon fonts used by the starter template -->
@@ -54,8 +54,13 @@
     </script>
 
     <div id="globalBody" class="oj-web-applayout-page">
+
+      <div id="announce" tabindex="-1" class="sendOffScreen" :aria-live="[[manner]]" aria-atomic="true">
+          <p id="ariaLiveMessage"><oj-bind-text value="[[message]]"></oj-bind-text></p>
+      </div>
+      
       <!--
-         ** Oracle JET V7.0.1 web application navigation bar and header patterns.
+         ** Oracle JET V8.1.0 web application navigation bar and header patterns.
          ** Please see the demos under Cookbook/Patterns/App Shell: Web
          ** and the CSS documentation under Support/API Docs/Non-Component Styling
          ** on the JET website for more information on how to use this pattern.
@@ -105,7 +110,7 @@
           </ul>
         </div>
         <div class="oj-web-applayout-footer-item oj-web-applayout-max-width oj-text-secondary-color oj-text-sm">
-          Copyright © 2014, 2019 Oracle and/or its affiliates All rights reserved.
+          Copyright © 2014, 2020 Oracle and/or its affiliates All rights reserved.
         </div>
       </footer>
     </div>
