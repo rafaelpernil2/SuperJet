@@ -16,7 +16,7 @@ An Oracle Jet web application for trying out different functionalities. It mimic
 
 **Steps without Docker:**
 
-Install Oracle Jet 7.0.0 or higher
+Install Oracle Jet 8.1.0 or higher
 ```
 $ npm install -g @oracle/ojet-cli@latest
 ```

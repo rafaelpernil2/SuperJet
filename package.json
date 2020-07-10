@@ -13,7 +13,9 @@
     "node": ">=0.10.0"
   },
   "resolutions": {
-    "jquery": "3.5.0"
+    "jquery": "3.5.0",
+    "websocket-extensions": "0.1.4",
+    "minimist": "^1.2.3"
   },
   "scripts": {
     "preinstall": "npx npm-force-resolutions"
